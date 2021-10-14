@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react' ;
+import Editor from './Editor' ;
+import { useState,useEffect } from 'react';
+import './index.css' ;
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+const App = () =>{
+  
+  const [html,changeHtml] = useState('') ;
+  const [css,changeCss] = useState('') ;
+  const [js,changeJs] = useState('') ;
+  const srcDoc = `<html>${html}</html>
+  <style>${css}</style>
+  <script>${js}</script>` ;
+
+  const getHtml = (editor,data,value) =>{
+    changeHtml(value) ;
+  }
+
+  const getCss = (editor,data,value) =>{
+    changeCss(value) ;
+  }
+
+  const getJs = (editor,data,value) =>{
+    changeJs(value) ;
+  }
+
+
+  return(
+    <>
+
+      
+      <div className='pane input-pane'>
+        <Editor onChange = {getHtml} val = {html} type="xml" />
+        <Editor onChange = {getCss} val = {css} type="css" />
+        <Editor onChange = {getJs} val = {js} type="javascript" />
+      </div>
+      <div className='pane output-pane'>
+        <iframe srcDoc = {srcDoc} title="Mistake Counter" width="100%" height="100%"/>
+      </div>
+    </>
   );
 }
 
-export default App;
+export default App ;
